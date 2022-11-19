@@ -16,5 +16,20 @@ namespace LibraryTrainer
         {
             InitializeComponent();
         }
+
+        private void ButtonBack_Click(object sender, EventArgs e)
+        {
+            WindowMain windowMain = new WindowMain();
+            windowMain.Show();
+
+            this.Hide();
+        }
+
+        private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
+
+    
 }
