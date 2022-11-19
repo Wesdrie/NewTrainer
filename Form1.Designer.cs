@@ -78,7 +78,6 @@
             // ButtonCall
             // 
             this.ButtonCall.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ButtonCall.Enabled = false;
             this.ButtonCall.FlatAppearance.BorderSize = 0;
             this.ButtonCall.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.ButtonCall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
