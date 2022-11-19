@@ -12,6 +12,13 @@ namespace LibraryTrainer
 {
     public partial class WindowCall : Form
     {
+        /// <summary>
+        /// DECLARE VARIBLES
+        /// </summary>
+        
+        Tools tools = new Tools();
+        DictionaryTree<string, string> tree = new DictionaryTree<string, string>();
+
         public WindowCall()
         {
             InitializeComponent();
@@ -28,6 +35,17 @@ namespace LibraryTrainer
         private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        /// <summary>
+        /// ON WINDOW LOAD PREFORM FUNCTIONS
+        /// </summary>
+        private void WindowCall_Load(object sender, EventArgs e)
+        {
+            var root = new DictionaryTree<string, string>
+            {
+                Parent = "Dewey" + "Tree";
+            };
         }
     }
 
