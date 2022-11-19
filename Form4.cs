@@ -12,6 +12,11 @@ namespace LibraryTrainer
 {
     public partial class WindowCall : Form
     {
+        /// <summary>
+        /// VARIBLES
+        /// </summary>
+        Tools wrench = new Tools();
+
         public WindowCall()
         {
             InitializeComponent();
