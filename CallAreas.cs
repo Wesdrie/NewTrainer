@@ -18,6 +18,12 @@ namespace LibraryTrainer
             this.AreaName = areaName;
             this.AreaDescription = areaDescription;
         }
+
+        public CallAreas(string areaNumber, string areaName)
+        {
+            this.AreaNumber = areaNumber;
+            this.AreaName = areaName;
+        }
     }
 }
 
