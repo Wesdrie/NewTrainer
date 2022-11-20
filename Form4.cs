@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -64,22 +65,18 @@ namespace LibraryTrainer
 
         public static TreeNode<string, string> TestData()
         {
+            int counter = 0;
+
             TreeNode<string, string> root = new TreeNode<string, string>("root", null);
             {
-                TreeNode<string, string> node0 = root.AddChild("000", "General Information");
-                TreeNode<string, string> node1 = root.AddChild("100", "Philosphy");
-                TreeNode<string, string> node2 = root.AddChild("200", "Religion");
+                foreach (string line in System.IO.File.ReadLines(@"C:\Users\Hendr\Documents\TestData.txt"))
                 {
-                    TreeNode<string, string> node20 = node2.AddChild("210", "Theory of Religion");
-                    TreeNode<string, string> node21 = node2.AddChild("230", "Chrsitianity");
+                    string[] lineValues = line.Split(',');
+
+                    foreach(string value in lineValues)
                     {
-                        TreeNode<string, string> node210 = node21.AddChild("233", "Humnakind");
-                        TreeNode<string, string> node211 = node21.AddChild("236", "Eschatology");
+                        System.Console.WriteLine(value);
                     }
-                }
-                TreeNode<string, string> node3 = root.AddChild("300", "Scoial Sciences");
-                {
-                    TreeNode<string, string> node30 = node3.AddChild("320", "Political Sciences");
                 }
             }
 
