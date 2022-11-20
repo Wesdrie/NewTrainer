@@ -48,7 +48,7 @@ namespace LibraryTrainer
             foreach (TreeNode<string, string> node in treeRoot)
             {
                 string indent = CreateIndent(node.Level);
-                Console.WriteLine(indent + (node.vData ?? "null"));
+                Console.WriteLine(indent + (node.kData ?? "null"));
             }
         }
 
