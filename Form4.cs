@@ -85,6 +85,5 @@ namespace LibraryTrainer
 
             return root;
         }
-
     }
 }
