@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,7 +20,9 @@ namespace LibraryTrainer
 
         Tools tools = new Tools();
 
-        TreeNode<string, string> node;
+        private string filePath = "@C:\\TestData.txt";
+        private int correctlevels = 0;
+        public int one, two, three, four = 0;
 
         public WindowCall()
         {
@@ -48,36 +51,53 @@ namespace LibraryTrainer
             TreeNode<string, string> treeRoot = TestData();
             foreach (TreeNode<string, string> node in treeRoot)
             {
-                string indent = CreateIndent(node.Level);
-                Console.WriteLine(indent + (node.kData ?? "null"));
+                if (node.Level == 0) one++;
+                if (node.Level == 1) two++;
+                if (node.Level == 2) three++;
+                if (node.Level == 3) four++;
             }
-        }
 
-        private static String CreateIndent(int depth)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < depth; i++)
-            {
-                sb.Append(' ');
-            }
-            return sb.ToString();
+            Console.WriteLine(one.ToString() + " " + two.ToString() + " " + three.ToString() + " " + four.ToString());
         }
 
         public static TreeNode<string, string> TestData()
         {
-            int counter = 0;
+            /*string[] lineValues;
+            using (StreamReader reader = new StreamReader(@"C:\\TestData.txt"))
+            {
+                lineValues = reader.ReadToEnd().Split(',');
+            }
 
             TreeNode<string, string> root = new TreeNode<string, string>("root", null);
             {
-                foreach (string line in System.IO.File.ReadLines(@"C:\Users\Hendr\Documents\TestData.txt"))
+                foreach(string values in lineValues)
                 {
-                    string[] lineValues = line.Split(',');
+                    TreeNode<string, string> values = new TreeNode<string, string>(values, null);
+                }
+            }*/
 
-                    foreach(string value in lineValues)
+            TreeNode<string,string> root = new TreeNode<string, string>("root", null);
+            {
+                TreeNode<string, string> node0 = root.AddChild("node0", null);
+                TreeNode<string, string> node1 = root.AddChild("node1", null);
+                {
+                    TreeNode<string, string> node10 = node1.AddChild("node20", null);
+                    TreeNode<string, string> node11 = node1.AddChild("node21", null);
                     {
-                        System.Console.WriteLine(value);
+                        TreeNode<string, string> node110 = node11.AddChild("node210", null);
+                        TreeNode<string, string> node111 = node11.AddChild("node211", null);
                     }
                 }
+                TreeNode<string, string> node2 = root.AddChild("node2", null);
+                {
+                    TreeNode<string, string> node20 = node2.AddChild("node20", null);
+                    TreeNode<string, string> node21 = node2.AddChild("node21", null);
+                    {
+                        TreeNode<string, string> node210 = node21.AddChild("node210", null);
+                        TreeNode<string, string> node211 = node21.AddChild("node211", null);
+                    }
+                }
+                TreeNode<string, string> node3 = root.AddChild("node3", null);
             }
 
             return root;

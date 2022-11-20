@@ -37,6 +37,7 @@
             this.ComboCalls = new System.Windows.Forms.ComboBox();
             this.LabelDropDown = new System.Windows.Forms.Label();
             this.LabelDisplayCall = new System.Windows.Forms.Label();
+            this.TextDisplayCall = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitCall)).BeginInit();
             this.SplitCall.Panel1.SuspendLayout();
             this.SplitCall.Panel2.SuspendLayout();
@@ -60,6 +61,7 @@
             // SplitCall.Panel2
             // 
             this.SplitCall.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.SplitCall.Panel2.Controls.Add(this.TextDisplayCall);
             this.SplitCall.Panel2.Controls.Add(this.ComboCalls);
             this.SplitCall.Panel2.Controls.Add(this.LabelDropDown);
             this.SplitCall.Panel2.Controls.Add(this.LabelDisplayCall);
@@ -162,6 +164,16 @@
             this.LabelDisplayCall.Text = "Third-Level Call Description";
             this.LabelDisplayCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // TextDisplayCall
+            // 
+            this.TextDisplayCall.Location = new System.Drawing.Point(15, 43);
+            this.TextDisplayCall.Margin = new System.Windows.Forms.Padding(0);
+            this.TextDisplayCall.Name = "TextDisplayCall";
+            this.TextDisplayCall.Size = new System.Drawing.Size(185, 19);
+            this.TextDisplayCall.TabIndex = 6;
+            this.TextDisplayCall.Text = "Call Description";
+            this.TextDisplayCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // WindowCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -199,5 +211,6 @@
         private System.Windows.Forms.Label LabelDisplayCall;
         private System.Windows.Forms.ComboBox ComboCalls;
         private System.Windows.Forms.Label LabelDropDown;
+        private System.Windows.Forms.Label TextDisplayCall;
     }
 }

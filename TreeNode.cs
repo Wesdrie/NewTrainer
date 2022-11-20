@@ -56,11 +56,6 @@ namespace LibraryTrainer
             return childNode;
         }
 
-        public override string ToString()
-        {
-            return kData != null ? kData.ToString() : "[data null]";
-        }
-
         private ICollection<TreeNode<kPair, vPair>> ElementsIndex { get; set; }
 
         private void RegisterChildForSearch(TreeNode<kPair, vPair> node)
