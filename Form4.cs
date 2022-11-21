@@ -299,10 +299,9 @@ namespace LibraryTrainer
         ///</summary>
         private void ButtonComplete_Click(object sender, EventArgs e)
         {
-            string[] tempArray;
-
             try
             {
+                //NULL ISSUE HERE
                 selectedItem = ComboCalls.SelectedItem.ToString();
                 string[] tempSplit = selectedItem.Split();
 
