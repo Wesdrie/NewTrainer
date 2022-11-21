@@ -35,9 +35,10 @@
             this.ButtonBack = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
             this.ComboCalls = new System.Windows.Forms.ComboBox();
-            this.LabelDropDown = new System.Windows.Forms.Label();
-            this.LabelDisplayCall = new System.Windows.Forms.Label();
-            this.TextDisplayCall = new System.Windows.Forms.Label();
+            this.LabelSelectedCall = new System.Windows.Forms.Label();
+            this.TextSelectedCall = new System.Windows.Forms.Label();
+            this.TextMatch = new System.Windows.Forms.Label();
+            this.LabelMatch = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitCall)).BeginInit();
             this.SplitCall.Panel1.SuspendLayout();
             this.SplitCall.Panel2.SuspendLayout();
@@ -61,10 +62,11 @@
             // SplitCall.Panel2
             // 
             this.SplitCall.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.SplitCall.Panel2.Controls.Add(this.TextDisplayCall);
+            this.SplitCall.Panel2.Controls.Add(this.TextMatch);
+            this.SplitCall.Panel2.Controls.Add(this.LabelMatch);
+            this.SplitCall.Panel2.Controls.Add(this.TextSelectedCall);
+            this.SplitCall.Panel2.Controls.Add(this.LabelSelectedCall);
             this.SplitCall.Panel2.Controls.Add(this.ComboCalls);
-            this.SplitCall.Panel2.Controls.Add(this.LabelDropDown);
-            this.SplitCall.Panel2.Controls.Add(this.LabelDisplayCall);
             this.SplitCall.Size = new System.Drawing.Size(634, 361);
             this.SplitCall.SplitterDistance = 200;
             this.SplitCall.TabIndex = 0;
@@ -138,41 +140,49 @@
             this.ComboCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboCalls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ComboCalls.FormattingEnabled = true;
-            this.ComboCalls.Location = new System.Drawing.Point(226, 37);
+            this.ComboCalls.Location = new System.Drawing.Point(124, 136);
             this.ComboCalls.Margin = new System.Windows.Forms.Padding(0);
             this.ComboCalls.Name = "ComboCalls";
-            this.ComboCalls.Size = new System.Drawing.Size(185, 25);
+            this.ComboCalls.Size = new System.Drawing.Size(186, 25);
             this.ComboCalls.TabIndex = 5;
             // 
-            // LabelDropDown
+            // LabelSelectedCall
             // 
-            this.LabelDropDown.Location = new System.Drawing.Point(226, 13);
-            this.LabelDropDown.Margin = new System.Windows.Forms.Padding(0);
-            this.LabelDropDown.Name = "LabelDropDown";
-            this.LabelDropDown.Size = new System.Drawing.Size(185, 19);
-            this.LabelDropDown.TabIndex = 4;
-            this.LabelDropDown.Text = "Call Number Selection";
-            this.LabelDropDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelSelectedCall.AutoSize = true;
+            this.LabelSelectedCall.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.LabelSelectedCall.Location = new System.Drawing.Point(124, 14);
+            this.LabelSelectedCall.Name = "LabelSelectedCall";
+            this.LabelSelectedCall.Size = new System.Drawing.Size(186, 21);
+            this.LabelSelectedCall.TabIndex = 6;
+            this.LabelSelectedCall.Text = "3rd Level Call Description";
             // 
-            // LabelDisplayCall
+            // TextSelectedCall
             // 
-            this.LabelDisplayCall.Location = new System.Drawing.Point(15, 13);
-            this.LabelDisplayCall.Margin = new System.Windows.Forms.Padding(0);
-            this.LabelDisplayCall.Name = "LabelDisplayCall";
-            this.LabelDisplayCall.Size = new System.Drawing.Size(185, 19);
-            this.LabelDisplayCall.TabIndex = 1;
-            this.LabelDisplayCall.Text = "Third-Level Call Description";
-            this.LabelDisplayCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TextSelectedCall.Location = new System.Drawing.Point(124, 45);
+            this.TextSelectedCall.Name = "TextSelectedCall";
+            this.TextSelectedCall.Size = new System.Drawing.Size(186, 19);
+            this.TextSelectedCall.TabIndex = 7;
+            this.TextSelectedCall.Text = "Call Description";
+            this.TextSelectedCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TextDisplayCall
+            // TextMatch
             // 
-            this.TextDisplayCall.Location = new System.Drawing.Point(15, 43);
-            this.TextDisplayCall.Margin = new System.Windows.Forms.Padding(0);
-            this.TextDisplayCall.Name = "TextDisplayCall";
-            this.TextDisplayCall.Size = new System.Drawing.Size(185, 19);
-            this.TextDisplayCall.TabIndex = 6;
-            this.TextDisplayCall.Text = "Call Description";
-            this.TextDisplayCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TextMatch.Location = new System.Drawing.Point(122, 106);
+            this.TextMatch.Name = "TextMatch";
+            this.TextMatch.Size = new System.Drawing.Size(186, 19);
+            this.TextMatch.TabIndex = 9;
+            this.TextMatch.Text = "Call Level To Match";
+            this.TextMatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LabelMatch
+            // 
+            this.LabelMatch.AutoSize = true;
+            this.LabelMatch.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.LabelMatch.Location = new System.Drawing.Point(122, 75);
+            this.LabelMatch.Name = "LabelMatch";
+            this.LabelMatch.Size = new System.Drawing.Size(185, 21);
+            this.LabelMatch.TabIndex = 8;
+            this.LabelMatch.Text = "Match To Displayed Level\r\n";
             // 
             // WindowCall
             // 
@@ -194,6 +204,7 @@
             this.Load += new System.EventHandler(this.WindowCall_Load);
             this.SplitCall.Panel1.ResumeLayout(false);
             this.SplitCall.Panel2.ResumeLayout(false);
+            this.SplitCall.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitCall)).EndInit();
             this.SplitCall.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -208,9 +219,10 @@
         private System.Windows.Forms.Button ButtonReset;
         private System.Windows.Forms.Label TextWords;
         private System.Windows.Forms.Label TextInstructions;
-        private System.Windows.Forms.Label LabelDisplayCall;
         private System.Windows.Forms.ComboBox ComboCalls;
-        private System.Windows.Forms.Label LabelDropDown;
-        private System.Windows.Forms.Label TextDisplayCall;
+        private System.Windows.Forms.Label LabelSelectedCall;
+        private System.Windows.Forms.Label TextSelectedCall;
+        private System.Windows.Forms.Label TextMatch;
+        private System.Windows.Forms.Label LabelMatch;
     }
 }

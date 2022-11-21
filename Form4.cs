@@ -16,6 +16,7 @@ namespace LibraryTrainer
     public partial class WindowCall : Form
     {
         Tools tools = new Tools();
+        Random random = new Random();
 
         TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
 
@@ -60,6 +61,7 @@ namespace LibraryTrainer
         public void SelectRandomCall()
         {
             List<string> tempList = new List<string>();
+            int tempValue;
 
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
@@ -69,6 +71,10 @@ namespace LibraryTrainer
                 }
             }
 
+            tempValue = random.Next(tempList.Count);
+            selectedCall = tempList[tempValue];
+
+            LabelDropDown.Text = selectedCall;
         }
 
         ///<summary>
