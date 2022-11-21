@@ -39,6 +39,10 @@
             this.TextSelectedCall = new System.Windows.Forms.Label();
             this.TextMatch = new System.Windows.Forms.Label();
             this.LabelMatch = new System.Windows.Forms.Label();
+            this.LabelBeat = new System.Windows.Forms.Label();
+            this.TextBeat = new System.Windows.Forms.Label();
+            this.LabelTime = new System.Windows.Forms.Label();
+            this.TextTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitCall)).BeginInit();
             this.SplitCall.Panel1.SuspendLayout();
             this.SplitCall.Panel2.SuspendLayout();
@@ -62,6 +66,10 @@
             // SplitCall.Panel2
             // 
             this.SplitCall.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.SplitCall.Panel2.Controls.Add(this.LabelTime);
+            this.SplitCall.Panel2.Controls.Add(this.TextTime);
+            this.SplitCall.Panel2.Controls.Add(this.LabelBeat);
+            this.SplitCall.Panel2.Controls.Add(this.TextBeat);
             this.SplitCall.Panel2.Controls.Add(this.TextMatch);
             this.SplitCall.Panel2.Controls.Add(this.LabelMatch);
             this.SplitCall.Panel2.Controls.Add(this.TextSelectedCall);
@@ -184,6 +192,46 @@
             this.LabelMatch.TabIndex = 8;
             this.LabelMatch.Text = "Match To Displayed Level\r\n";
             // 
+            // LabelBeat
+            // 
+            this.LabelBeat.Location = new System.Drawing.Point(17, 303);
+            this.LabelBeat.Margin = new System.Windows.Forms.Padding(0);
+            this.LabelBeat.Name = "LabelBeat";
+            this.LabelBeat.Size = new System.Drawing.Size(100, 19);
+            this.LabelBeat.TabIndex = 10;
+            this.LabelBeat.Text = "Time-To-Beat";
+            this.LabelBeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TextBeat
+            // 
+            this.TextBeat.Location = new System.Drawing.Point(17, 323);
+            this.TextBeat.Margin = new System.Windows.Forms.Padding(0);
+            this.TextBeat.Name = "TextBeat";
+            this.TextBeat.Size = new System.Drawing.Size(100, 19);
+            this.TextBeat.TabIndex = 11;
+            this.TextBeat.Text = "0 Seconds";
+            this.TextBeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LabelTime
+            // 
+            this.LabelTime.Location = new System.Drawing.Point(310, 303);
+            this.LabelTime.Margin = new System.Windows.Forms.Padding(0);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(100, 19);
+            this.LabelTime.TabIndex = 12;
+            this.LabelTime.Text = "Current Time";
+            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TextTime
+            // 
+            this.TextTime.Location = new System.Drawing.Point(310, 323);
+            this.TextTime.Margin = new System.Windows.Forms.Padding(0);
+            this.TextTime.Name = "TextTime";
+            this.TextTime.Size = new System.Drawing.Size(100, 19);
+            this.TextTime.TabIndex = 13;
+            this.TextTime.Text = "0 Seconds";
+            this.TextTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // WindowCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -224,5 +272,9 @@
         private System.Windows.Forms.Label TextSelectedCall;
         private System.Windows.Forms.Label TextMatch;
         private System.Windows.Forms.Label LabelMatch;
+        private System.Windows.Forms.Label LabelBeat;
+        private System.Windows.Forms.Label TextBeat;
+        private System.Windows.Forms.Label LabelTime;
+        private System.Windows.Forms.Label TextTime;
     }
 }
