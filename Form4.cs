@@ -108,9 +108,8 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelOne()
         {
-            List<CallAreas> levelOne = new List<CallAreas>();
-            int tempCounter = 0;
-            string tempString;
+            List<string> levelOne = new List<string>();
+            int tempAmount = 0;
 
             try
             {
@@ -119,22 +118,23 @@ namespace LibraryTrainer
 
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
-                    if (node.Level == 1 && (tempCounter != 4))
+                    if (node.Level == 1)
                     {
-                        int tempNumber = random.Next(0, 9);
-                        tempString = tempNumber.ToString();
-
-
-                        if(node.Data.AreaNumber.Contains(tempString) && (!ComboCalls.Items.Contains(node.Data.AreaNumber)))
-                        {
-                            ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-                            tempCounter++;
-                        }
-
-                        TextMatch.Text = "Level " + node.Level;
-
-                        Console.WriteLine(tempCounter);
+                        levelOne.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount < 4)
+                {
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 9);
+
+                    if (!ComboCalls.Items.Contains(levelOne[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelOne[tempNumber]);
+                    }
+
+                    TextMatch.Text = "Level " + 1;
                 }
             }
             catch (Exception ex)
