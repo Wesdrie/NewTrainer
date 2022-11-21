@@ -28,21 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SplitCall = new System.Windows.Forms.SplitContainer();
             this.TextWords = new System.Windows.Forms.Label();
             this.TextInstructions = new System.Windows.Forms.Label();
             this.ButtonComplete = new System.Windows.Forms.Button();
             this.ButtonBack = new System.Windows.Forms.Button();
             this.ButtonReset = new System.Windows.Forms.Button();
-            this.ComboCalls = new System.Windows.Forms.ComboBox();
-            this.LabelSelectedCall = new System.Windows.Forms.Label();
-            this.TextSelectedCall = new System.Windows.Forms.Label();
-            this.TextMatch = new System.Windows.Forms.Label();
-            this.LabelMatch = new System.Windows.Forms.Label();
-            this.LabelBeat = new System.Windows.Forms.Label();
-            this.TextBeat = new System.Windows.Forms.Label();
             this.LabelTime = new System.Windows.Forms.Label();
             this.TextTime = new System.Windows.Forms.Label();
+            this.LabelBeat = new System.Windows.Forms.Label();
+            this.TextBeat = new System.Windows.Forms.Label();
+            this.TextMatch = new System.Windows.Forms.Label();
+            this.LabelMatch = new System.Windows.Forms.Label();
+            this.TextSelectedCall = new System.Windows.Forms.Label();
+            this.LabelSelectedCall = new System.Windows.Forms.Label();
+            this.ComboCalls = new System.Windows.Forms.ComboBox();
+            this.TimerCalls = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SplitCall)).BeginInit();
             this.SplitCall.Panel1.SuspendLayout();
             this.SplitCall.Panel2.SuspendLayout();
@@ -144,55 +146,25 @@
             this.ButtonReset.UseVisualStyleBackColor = true;
             this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
-            // ComboCalls
+            // LabelTime
             // 
-            this.ComboCalls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.ComboCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ComboCalls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.ComboCalls.FormattingEnabled = true;
-            this.ComboCalls.Location = new System.Drawing.Point(124, 136);
-            this.ComboCalls.Margin = new System.Windows.Forms.Padding(0);
-            this.ComboCalls.Name = "ComboCalls";
-            this.ComboCalls.Size = new System.Drawing.Size(186, 25);
-            this.ComboCalls.TabIndex = 5;
+            this.LabelTime.Location = new System.Drawing.Point(310, 303);
+            this.LabelTime.Margin = new System.Windows.Forms.Padding(0);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(100, 19);
+            this.LabelTime.TabIndex = 12;
+            this.LabelTime.Text = "Current Time";
+            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LabelSelectedCall
+            // TextTime
             // 
-            this.LabelSelectedCall.AutoSize = true;
-            this.LabelSelectedCall.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
-            this.LabelSelectedCall.Location = new System.Drawing.Point(124, 14);
-            this.LabelSelectedCall.Name = "LabelSelectedCall";
-            this.LabelSelectedCall.Size = new System.Drawing.Size(186, 21);
-            this.LabelSelectedCall.TabIndex = 6;
-            this.LabelSelectedCall.Text = "3rd Level Call Description";
-            // 
-            // TextSelectedCall
-            // 
-            this.TextSelectedCall.Location = new System.Drawing.Point(0, 45);
-            this.TextSelectedCall.Name = "TextSelectedCall";
-            this.TextSelectedCall.Size = new System.Drawing.Size(431, 19);
-            this.TextSelectedCall.TabIndex = 7;
-            this.TextSelectedCall.Text = "Call Description";
-            this.TextSelectedCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TextMatch
-            // 
-            this.TextMatch.Location = new System.Drawing.Point(122, 106);
-            this.TextMatch.Name = "TextMatch";
-            this.TextMatch.Size = new System.Drawing.Size(186, 19);
-            this.TextMatch.TabIndex = 9;
-            this.TextMatch.Text = "Call Level To Match";
-            this.TextMatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LabelMatch
-            // 
-            this.LabelMatch.AutoSize = true;
-            this.LabelMatch.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
-            this.LabelMatch.Location = new System.Drawing.Point(122, 75);
-            this.LabelMatch.Name = "LabelMatch";
-            this.LabelMatch.Size = new System.Drawing.Size(185, 21);
-            this.LabelMatch.TabIndex = 8;
-            this.LabelMatch.Text = "Match To Displayed Level\r\n";
+            this.TextTime.Location = new System.Drawing.Point(310, 323);
+            this.TextTime.Margin = new System.Windows.Forms.Padding(0);
+            this.TextTime.Name = "TextTime";
+            this.TextTime.Size = new System.Drawing.Size(100, 19);
+            this.TextTime.TabIndex = 13;
+            this.TextTime.Text = "0 Seconds";
+            this.TextTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LabelBeat
             // 
@@ -214,25 +186,60 @@
             this.TextBeat.Text = "0 Seconds";
             this.TextBeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LabelTime
+            // TextMatch
             // 
-            this.LabelTime.Location = new System.Drawing.Point(310, 303);
-            this.LabelTime.Margin = new System.Windows.Forms.Padding(0);
-            this.LabelTime.Name = "LabelTime";
-            this.LabelTime.Size = new System.Drawing.Size(100, 19);
-            this.LabelTime.TabIndex = 12;
-            this.LabelTime.Text = "Current Time";
-            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TextMatch.Location = new System.Drawing.Point(122, 106);
+            this.TextMatch.Name = "TextMatch";
+            this.TextMatch.Size = new System.Drawing.Size(186, 19);
+            this.TextMatch.TabIndex = 9;
+            this.TextMatch.Text = "Call Level To Match";
+            this.TextMatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TextTime
+            // LabelMatch
             // 
-            this.TextTime.Location = new System.Drawing.Point(310, 323);
-            this.TextTime.Margin = new System.Windows.Forms.Padding(0);
-            this.TextTime.Name = "TextTime";
-            this.TextTime.Size = new System.Drawing.Size(100, 19);
-            this.TextTime.TabIndex = 13;
-            this.TextTime.Text = "0 Seconds";
-            this.TextTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelMatch.AutoSize = true;
+            this.LabelMatch.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.LabelMatch.Location = new System.Drawing.Point(122, 75);
+            this.LabelMatch.Name = "LabelMatch";
+            this.LabelMatch.Size = new System.Drawing.Size(185, 21);
+            this.LabelMatch.TabIndex = 8;
+            this.LabelMatch.Text = "Match To Displayed Level\r\n";
+            // 
+            // TextSelectedCall
+            // 
+            this.TextSelectedCall.Location = new System.Drawing.Point(0, 45);
+            this.TextSelectedCall.Name = "TextSelectedCall";
+            this.TextSelectedCall.Size = new System.Drawing.Size(431, 19);
+            this.TextSelectedCall.TabIndex = 7;
+            this.TextSelectedCall.Text = "Call Description";
+            this.TextSelectedCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LabelSelectedCall
+            // 
+            this.LabelSelectedCall.AutoSize = true;
+            this.LabelSelectedCall.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.LabelSelectedCall.Location = new System.Drawing.Point(124, 14);
+            this.LabelSelectedCall.Name = "LabelSelectedCall";
+            this.LabelSelectedCall.Size = new System.Drawing.Size(186, 21);
+            this.LabelSelectedCall.TabIndex = 6;
+            this.LabelSelectedCall.Text = "3rd Level Call Description";
+            // 
+            // ComboCalls
+            // 
+            this.ComboCalls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
+            this.ComboCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ComboCalls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.ComboCalls.FormattingEnabled = true;
+            this.ComboCalls.Location = new System.Drawing.Point(124, 136);
+            this.ComboCalls.Margin = new System.Windows.Forms.Padding(0);
+            this.ComboCalls.Name = "ComboCalls";
+            this.ComboCalls.Size = new System.Drawing.Size(186, 25);
+            this.ComboCalls.TabIndex = 5;
+            // 
+            // TimerCalls
+            // 
+            this.TimerCalls.Interval = 1000;
+            this.TimerCalls.Tick += new System.EventHandler(this.TimerCalls_Tick);
             // 
             // WindowCall
             // 
@@ -278,5 +285,6 @@
         private System.Windows.Forms.Label TextBeat;
         private System.Windows.Forms.Label LabelTime;
         private System.Windows.Forms.Label TextTime;
+        private System.Windows.Forms.Timer TimerCalls;
     }
 }

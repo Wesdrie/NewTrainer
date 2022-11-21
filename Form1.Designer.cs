@@ -134,7 +134,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Library Trainer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WindowMain_FormClosing);
-            this.Load += new System.EventHandler(this.WindowMain_Load);
             this.SplitMain.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).EndInit();
             this.SplitMain.ResumeLayout(false);

@@ -16,18 +16,19 @@ namespace LibraryTrainer
     public partial class WindowAreas : Form
     {
         /// <summary>
-        /// DECLARE VARIBLES:
-        /// CONNETION STRING TO DATABASE & QUERIES.
-        /// CALL TO OTHER CLASSES.
-        /// DECLARE OBJECT, DICTIONAREIS & ASSOICATED DATA. NEED TO MOVE DATA DB.
-        /// DECLARE LISTS & REMAINING VARIABLES.
+        /// DATABASE CONNECTION
         /// </summary>
+
         //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
         //String insertCommand = "INSERT INTO AREA (AREA_ID, AREA_TIME, AREA_SCORE) VALUES (@A, @B, @C);";
         //String readCommand = "SELECT MIN(AREA_TIME) AS DISPLAYTIME FROM AREA;";
         //String idCommand = "SELECT MAX(AREA_ID) AS DATAID FROM AREA;";
 
         //SqlConnection sqlConnection = new SqlConnection();
+
+        /// <summary>
+        /// GLOBAL VARIBLES
+        /// </summary>
 
         Tools wrench = new Tools();
         Random random = new Random();
@@ -64,12 +65,9 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// ON-WINDOW-LOADS, DO THESE:
-        /// OPEN DATABSE AND FIND MINIMUM TIME-TO-BEAT.
-        /// ENSURE COLUMNS ARE ENABLED.
-        /// GENERATE RANDOM LISTS FROM DICTIONARY.
+        /// ON-WINDOW-LOAD GENERATE ITEMS FROM DICTIONARY & FILL LISTS FOR CHECKS.
         /// START TIMER.
-        /// CAN SWAP OUT COLUMSN INFROMATION.
+        /// DISPLAY TIME-TO-BEAT.
         /// </summary>
         private void WindowAreas_Load(object sender, EventArgs e)
         {
@@ -114,10 +112,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// TIMER STARTS, DO THESE:
-        /// CONTINOUS 1 SECOND TICK UNTIL STOPPED.
-        /// CLEAR, FILL AND PASS LISTS WITH DICTIRONARY REFERNCES TO TOOLS CLASS.
-        /// DISPLAYED RETURNED VALUE AS POINTS.
+        /// ON-TICK PROGRESS TICKER, UPDATE USERS INTERFACE & PREFORM CHECKS FOR POINTS.
         /// </summary>
         private void TimerAreas_Tick(object sender, EventArgs e)
         {
@@ -157,9 +152,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// DRAG & DROP:
-        /// MOVE DATA FROM ONE INDEX LOCATION TO ANOTHER.
-        /// MOVE EXISITNG DATA DOWN INDEX.
+        /// SELECT ITEM ON USER IO.
         /// </summary>
         private void ListText_MouseDown(object sender, MouseEventArgs e)
         {
@@ -173,6 +166,9 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// DRAG SELECTED ITEM.
+        /// </summary>
         private void ListText_DragOver(object sender, DragEventArgs e)
         {
             try
@@ -185,6 +181,9 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// DROP SELECTED ITEM & REPLACE INDEX.
+        /// </summary>
         private void ListText_DragDrop(object sender, DragEventArgs e)
         {
             try
@@ -205,19 +204,12 @@ namespace LibraryTrainer
             }
         }
 
-        /// <summary>
-        /// NAVIGATION CONTROLS FOR BACK & EXIT. ENSURE APPLICATION ENDS.
-        /// ON COMPLETE:
-        /// READ LIST OF IDS & CREATE SEQUENCIAL ID.
-        /// SET ID, SCORE AND TIME.
-        /// NOTIFY USER WITH UPDATES.
-        /// IF USER DOESNT MEET MINIMUM, RESET.
-        /// DISABLE GAME FEATURE.
-        /// ON RESET:
-        /// CLEAR TIMERS & RESTART.
-        /// ENSURE GAME FEATURE IS ENABLED.
-        /// CHECK FOR NEW TIME-TO-BEAT.
-        /// </summary>
+        ///<summary>
+        ///CHECK THE CURRENT OPERATION.
+        ///ENSURE USER MEETS REQUIERMETNS.
+        ///STOPS TIMER.
+        ///SUBMIT TO DATABASE.
+        ///</summary>
         private void ButtonComplete_Click(object sender, EventArgs e)
         {
             try
@@ -271,13 +263,13 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// ON-BUTTON STOP & RESET TIMER AS WELL AS RESET ITEMS.
+        /// </summary>
         private void ButtonReset_Click(object sender, EventArgs e)
         {
             try
             {
-                /// <summary>
-                /// MAYBE BEST TO MOVE FUNCTION TO TOOLS
-                /// </summary>
                 TimerAreas.Stop();
                 timerTicker = 0;
                 TextTime.Text = "0 Seconds";
@@ -310,17 +302,37 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// NAVIGATE TO MAIN WINDOW
+        /// </summary>
         private void ButtonBack_Click(object sender, EventArgs e)
         {
-            WindowMain windowMain = new WindowMain();
-            windowMain.Show();
+            try
+            {
+                WindowMain windowMain = new WindowMain();
+                windowMain.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// ON-BUTTON 'X' EXIT APPLICATION & ENSURE APPLICATION CLOSES
+        /// </summary>
         private void WindowAreas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

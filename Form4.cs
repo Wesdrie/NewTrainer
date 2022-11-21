@@ -15,26 +15,48 @@ namespace LibraryTrainer
 {
     public partial class WindowCall : Form
     {
-        Tools tools = new Tools();
+        /// <summary>
+        /// DATABASE CONNECTION
+        /// </summary>
+
+        //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
+        //String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
+        //String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
+        //String idCommand = "SELECT MAX(SORT_ID) AS DATAID FROM SORT;";
+
+        //SqlConnection sqlConnection = new SqlConnection();
+
+        /// <summary>
+        /// GLOBAL VARIBLES
+        /// </summary>
+
+        Tools wrench = new Tools();
         Random random = new Random();
 
         TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
 
         private int levelCounter = 0;
-        private string selectedCall, selectedParent, selectedGrandParent, selectedItem;
+        private int timerTicker;
+        private string selectedItem;
+
+        private List<string> treeCalls = new List<string>();
 
         public WindowCall()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// ON-WINDOW-LOAD SELECT RANDOM 3RD LEVEL ITEM WITH PARENTS TILL ROOT.
+        /// LOAD INTO LIST FOR REFRENCE.
+        /// BASED ON COUNTER LEVEL, DISPLAY INFORMATION.
+        /// START TIMER.
+        /// </summary>
         private void WindowCall_Load(object sender, EventArgs e)
         {
             try
             {
-                //LoadDatatFile();
-
-                SelectRandomCall();
+                treeCalls.AddRange(wrench.SelectRandomCall());
 
                 if(levelCounter == 0)
                 {
@@ -48,47 +70,12 @@ namespace LibraryTrainer
                 {
                     DisplayLevelThree();
                 }
+
+                TimerCalls.Start();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-            }
-        }
-
-        ///<summary>
-        ///SELECT RANDOM CALL NAME BY PULLING DATA FROM TREE, THEN STORING IN LIST.
-        ///STORE CALL NAME, CALL NAME PARENT AND CALL NAME GRANDPARENT.
-        ///USE RANDOM NUMBER GENERATOR TO SELECT CALL NAME.
-        /// </summary>
-        public void SelectRandomCall()
-        {
-            try
-            {
-                List<string> tempListOne = new List<string>();
-                List<string> tempListTwo = new List<string>();
-                List<string> tempListThree = new List<string>();
-                int tempValue;
-
-                foreach (TreeNode<CallAreas> node in treeRoot)
-                {
-                    if (node.Level == 3)
-                    {
-                        tempListOne.Add(node.Data.AreaName);
-                        tempListTwo.Add(node.Parent.Data.AreaName);
-                        tempListThree.Add(node.Parent.Parent.Data.AreaName);
-                    }
-                }
-
-                tempValue = random.Next(tempListOne.Count);
-                selectedCall = tempListOne[tempValue];
-                selectedParent = tempListTwo[tempValue];
-                selectedGrandParent = tempListThree[tempValue];
-
-                TextSelectedCall.Text = selectedCall;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -115,7 +102,7 @@ namespace LibraryTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -142,7 +129,7 @@ namespace LibraryTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -169,7 +156,7 @@ namespace LibraryTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -181,130 +168,30 @@ namespace LibraryTrainer
         {
             try
             {
-                //NEEDS MESSAGE
+                MessageBox.Show("Your Selection Was INCORRECT.", "Note", MessageBoxButtons.OK);
                 DisplayLevelOne();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
-        private void ButtonReset_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DisplayLevelOne();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
-
-        ///<summary>
-        ///READS DATA FROM TEXT FILE WITH CSV.
-        ///AFTER A LINE IS READ, ITS ASSIGNED LEVEL IS COMPARED TO PREFORM CERTIAN FUCNTIONS.
-        ///0 - ONE OF THE 10 GENERAL CATEGORIES.
-        ///1 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
-        ///2 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
+        /// <summary>
+        /// ON-TICK PROGRESS TICKER & UPDATE USERS INTERFACE.
         /// </summary>
-        /*public void LoadDatatFile()
+        private void TimerCalls_Tick(object sender, EventArgs e)
         {
             try
             {
-                int valueOne = 0;
-                int valueTwo = 0;
-
-                Tree<CallAreas> tree = new Tree<CallAreas>();
-                tree.Root = new TreeNode<CallAreas>()
-                {
-                    Data = new CallAreas("Root", "Root"),
-                    Parent = null
-                };
-
-                foreach (string line in File.ReadLines(@"C:\TestData.txt"))
-                {
-                    string[] values = line.Split(',');
-                    List<string> list = new List<string>();
-
-                    if (values[0].Contains("0"))
-                    {
-                        tree.Root.Children = new List<TreeNode<CallAreas>>
-                        {
-                            new TreeNode<CallAreas>()
-                            {
-                                Data = new CallAreas(values[2], values[3]),
-                                Parent = tree.Root
-                            }
-                        };
-
-                        Console.WriteLine(values[2] + " " + values[3] + " " + valueOne);
-                    }
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Console.WriteLine(tree.Root.Children[i].ToString());
-                    }
-
-                    if (values[0].Contains("1"))
-                    {
-                        if (values[1].Equals("000")) { valueOne = 0; }
-                        if (values[1].Equals("100")) { valueOne = 1; }
-                        if (values[1].Equals("200")) { valueOne = 2; }
-                        if (values[1].Equals("300")) { valueOne = 3; }
-                        if (values[1].Equals("400")) { valueOne = 4; }
-                        if (values[1].Equals("500")) { valueOne = 5; }
-                        if (values[1].Equals("600")) { valueOne = 6; }
-                        if (values[1].Equals("700")) { valueOne = 7; }
-                        if (values[1].Equals("800")) { valueOne = 8; }
-                        if (values[1].Equals("900")) { valueOne = 9; }
-
-                        tree.Root.Children[valueOne].Children = new List<TreeNode<CallAreas>>
-                         {
-                             new TreeNode<CallAreas>()
-                             {
-                                 Data = new CallAreas(values[2], values[3]),
-                                 Parent = tree.Root.Children[valueOne]
-                             }
-                         };
-
-                        Console.WriteLine("\t" + values[2] + " " + values[3]);
-                    }
-                    if (values[0].Contains("2"))
-                    {
-                        int valueThree = Int16.Parse(values[1]);
-
-                        if (valueThree >= 0 && valueThree < 100) { valueOne = 0; }
-                        if (valueThree >= 100 && valueThree < 200) { valueOne = 1; }
-                        if (valueThree >= 200 && valueThree < 300) { valueOne = 2; }
-                        if (valueThree >= 300 && valueThree < 400) { valueOne = 3; }
-                        if (valueThree >= 400 && valueThree < 500) { valueOne = 4; }
-                        if (valueThree >= 500 && valueThree < 600) { valueOne = 5; }
-                        if (valueThree >= 600 && valueThree < 700) { valueOne = 6; }
-                        if (valueThree >= 700 && valueThree < 800) { valueOne = 7; }
-                        if (valueThree >= 800 && valueThree < 900) { valueOne = 8; }
-                        if (valueThree >= 900 && valueThree < 1000) { valueOne = 9; }
-
-                        tree.Root.Children[valueOne].Children[valueTwo].Children = new List<TreeNode<CallAreas>>
-                         {
-                             new TreeNode<CallAreas>()
-                             {
-                                 Data = new CallAreas(values[2], values[3]),
-                                 Parent = tree.Root.Children[valueOne].Children[valueTwo]
-                             }
-                         };
-
-                        Console.WriteLine("\t\t" + values[2] + " " + values[3]);
-                    }
-                }
-
+                timerTicker++;
+                TextTime.Text = timerTicker.ToString() + " Seconds";
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
-        }*/
-
+        }
 
         ///<summary>
         ///CHECK THE CURRENT OPERATION.
@@ -323,7 +210,7 @@ namespace LibraryTrainer
                 
                 if(found.Level == 1)
                 {
-                    if(selectedGrandParent == found.Data.AreaName)
+                    if (treeCalls[2] == found.Data.AreaName)
                     {
                         DisplayLevelTwo();
                     }
@@ -331,7 +218,7 @@ namespace LibraryTrainer
                 }
                 if (found.Level == 2)
                 {
-                    if (selectedParent == found.Data.AreaName)
+                    if (treeCalls[1] == found.Data.AreaName)
                     {
                         DisplayLevelThree();
                     }
@@ -339,19 +226,45 @@ namespace LibraryTrainer
                 }
                 if (found.Level == 3)
                 {
-                    if (selectedCall == found.Data.AreaName)
+                    if (treeCalls[0] == found.Data.AreaName)
                     {
                         //Submit();
+                        TimerCalls.Stop();
                     }
                     else { ResetOnError(); }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
+        /// <summary>
+        /// ON-BUTTON CLICK STOP & RESET TIMER AS WELL AS RESET QUESTIONS.
+        /// </summary>
+        private void ButtonReset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TimerCalls.Stop();
+                timerTicker = 0;
+                TextTime.Text = "0 Seconds";
+
+                treeCalls.Clear();
+                treeCalls.AddRange(wrench.SelectRandomCall());
+
+                DisplayLevelOne();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// NAVIGATE TO MAIN WINDOW
+        /// </summary>
         private void ButtonBack_Click(object sender, EventArgs e)
         {
             try
@@ -363,10 +276,13 @@ namespace LibraryTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
 
+        /// <summary>
+        /// ON-BUTTON 'X' EXIT APPLICATION & ENSURE APPLICATION CLOSES
+        /// </summary>
         private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -375,7 +291,7 @@ namespace LibraryTrainer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
     }

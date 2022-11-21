@@ -17,6 +17,7 @@ namespace LibraryTrainer
         /// <summary>
         /// DATABASE CONNECTION
         /// </summary>
+        
         //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
         //String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
         //String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
@@ -25,8 +26,9 @@ namespace LibraryTrainer
         //SqlConnection sqlConnection = new SqlConnection();
 
         /// <summary>
-        /// VARIBLES
+        /// GLOBAL VARIBLES
         /// </summary>
+        
         Tools wrench = new Tools();
 
         List<String> generatedDecimals = new List<String>();
@@ -41,7 +43,9 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// ON LOAD BEGIN TIMER, GENERATE ITEMS AND FILL LISTS FOR CHECKS
+        /// ON-WINDOW-LOAD GENERATE ITEMS & FILL LISTS FOR CHECKS.
+        /// START TIMER.
+        /// DISPLAY TIME-TO-BEAT.
         /// </summary>
         private void WindowSort_Load(object sender, EventArgs e)
         {
@@ -81,6 +85,9 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// ON-TICK PROGRESS TICKER, UPDATE USERS INTERFACE & PREFORM CHECKS FOR POINTS.
+        /// </summary>
         private void TimerSort_Tick(object sender, EventArgs e)
         {
             try
@@ -105,7 +112,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// DRAG & DROP REORDER
+        /// SELECT ITEM ON USER IO.
         /// </summary>
         private void ListSort_MouseDown(object sender, MouseEventArgs e)
         {
@@ -119,6 +126,9 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// DRAG SELECTED ITEM.
+        /// </summary>
         private void ListSort_DragOver(object sender, DragEventArgs e)
         {
             try
@@ -131,6 +141,9 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// DROP SELECTED ITEM & REPLACE INDEX.
+        /// </summary>
         private void ListSort_DragDrop(object sender, DragEventArgs e)
         {
             try
@@ -151,9 +164,12 @@ namespace LibraryTrainer
             }
         }
 
-        /// <summary>
-        /// NAVIGATION BUTTONS & ENSURE APPLICAITON CLOSES
-        /// </summary>
+        ///<summary>
+        ///CHECK THE CURRENT OPERATION.
+        ///ENSURE USER MEETS REQUIERMETNS.
+        ///STOPS TIMER.
+        ///SUBMIT TO DATABASE.
+        ///</summary>
         private void ButtonComplete_Click(object sender, EventArgs e)
         {
             try
@@ -207,13 +223,13 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// ON-BUTTON STOP & RESET TIMER AS WELL AS RESET ITEMS.
+        /// </summary>
         private void ButtonReset_Click(object sender, EventArgs e)
         {
             try
             {
-                /// <summary>
-                /// MAYBE BEST TO MOVE FUNCTION TO TOOLS
-                /// </summary>
                 TimerSort.Stop();
                 timerTicker = 0;
                 TextTime.Text = "0 Seconds";
@@ -246,17 +262,37 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// NAVIGATE TO MAIN WINDOW
+        /// </summary>
         private void ButtonBack_Click(object sender, EventArgs e)
         {
-            WindowMain windowMain = new WindowMain();
-            windowMain.Show();
+            try
+            {
+                WindowMain windowMain = new WindowMain();
+                windowMain.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// ON-BUTTON 'X' EXIT APPLICATION & ENSURE APPLICATION CLOSES
+        /// </summary>
         private void WindowSort_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
