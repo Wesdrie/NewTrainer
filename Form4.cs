@@ -74,7 +74,7 @@ namespace LibraryTrainer
             tempValue = random.Next(tempList.Count);
             selectedCall = tempList[tempValue];
 
-            LabelDropDown.Text = selectedCall;
+            TextSelectedCall.Text = selectedCall;
         }
 
         ///<summary>
@@ -86,6 +86,7 @@ namespace LibraryTrainer
             {
                 if (node.Level == 1)
                 {
+                    TextMatch.Text = "Level" + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                 }
             }
