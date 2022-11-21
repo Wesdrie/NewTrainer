@@ -231,10 +231,11 @@
             this.ComboCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboCalls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ComboCalls.FormattingEnabled = true;
-            this.ComboCalls.Location = new System.Drawing.Point(124, 136);
+            this.ComboCalls.Location = new System.Drawing.Point(0, 136);
             this.ComboCalls.Margin = new System.Windows.Forms.Padding(0);
             this.ComboCalls.Name = "ComboCalls";
-            this.ComboCalls.Size = new System.Drawing.Size(186, 25);
+            this.ComboCalls.Size = new System.Drawing.Size(431, 25);
+            this.ComboCalls.Sorted = true;
             this.ComboCalls.TabIndex = 5;
             // 
             // TimerCalls

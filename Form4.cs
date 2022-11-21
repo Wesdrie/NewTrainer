@@ -116,29 +116,36 @@ namespace LibraryTrainer
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 1;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 1)
                     {
+                        for (int i = 0; i < 9; i++)
+                        {
+                            if(node.Data.AreaName == treeCalls[2])
+                            {
+                                levelOne.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 9;
+                            }
+                        }
                         levelOne.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
                 }
 
                 while (tempAmount < 4)
                 {
+                    System.Threading.Thread.Sleep(10);
                     tempAmount = ComboCalls.Items.Count;
                     int tempNumber = random.Next(0, 9);
-
-                    if (treeCalls[2] == levelOne[tempNumber])
-                    {
-                        ComboCalls.Items.Add(levelOne[tempNumber]);
-                    }
+                    
                     if (!ComboCalls.Items.Contains(levelOne[tempNumber]))
                     {
                         ComboCalls.Items.Add(levelOne[tempNumber]);
                     }
-
-                    TextMatch.Text = "Level " + 1;
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -161,25 +168,36 @@ namespace LibraryTrainer
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 2;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 2)
                     {
+                        for (int i = 0; i < 49; i++)
+                        {
+                            if (node.Data.AreaName == treeCalls[1])
+                            {
+                                levelTwo.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 49;
+                            }
+                        }
                         levelTwo.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
                 }
 
-                while (tempAmount != 3)
+                while (tempAmount < 4)
                 {
+                    System.Threading.Thread.Sleep(10);
                     tempAmount = ComboCalls.Items.Count;
-                    int tempNumber = random.Next(0, 9);
+                    int tempNumber = random.Next(0, 49);
 
                     if (!ComboCalls.Items.Contains(levelTwo[tempNumber]))
                     {
                         ComboCalls.Items.Add(levelTwo[tempNumber]);
                     }
-
-                    TextMatch.Text = "Level " + 2;
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -194,19 +212,44 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelThree()
         {
+            List<string> levelThree = new List<string>();
+            int tempAmount = 0;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 3;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 3)
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-
-                        TextMatch.Text = "Level " + node.Level;
+                        for (int i = 0; i < 99; i++)
+                        {
+                            if (node.Data.AreaName == treeCalls[0])
+                            {
+                                levelThree.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 99;
+                            }
+                        }
+                        levelThree.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount < 4)
+                {
+                    System.Threading.Thread.Sleep(10);
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 99);
+
+                    if (!ComboCalls.Items.Contains(levelThree[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelThree[tempNumber]);
+                    }
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -256,6 +299,8 @@ namespace LibraryTrainer
         ///</summary>
         private void ButtonComplete_Click(object sender, EventArgs e)
         {
+            string[] tempArray;
+
             try
             {
                 selectedItem = ComboCalls.SelectedItem.ToString();
