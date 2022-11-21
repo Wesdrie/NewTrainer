@@ -17,13 +17,13 @@ namespace LibraryTrainer
         /// <summary>
         /// DATABASE CONNECTION
         /// </summary>
-        
-        //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
-        //String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
-        //String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
-        //String idCommand = "SELECT MAX(SORT_ID) AS DATAID FROM SORT;";
 
-        //SqlConnection sqlConnection = new SqlConnection();
+        String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Hendr\\Downloads\\NewTrainer\\NewTrainer\\Database1.mdf;Integrated Security=True";
+        String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
+        String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
+        String idCommand = "SELECT MAX(SORT_ID) AS DATAID FROM SORT;";
+
+        SqlConnection sqlConnection = new SqlConnection();
 
         /// <summary>
         /// GLOBAL VARIBLES
@@ -51,16 +51,16 @@ namespace LibraryTrainer
         {
             try
             {
-                //sqlConnection.ConnectionString = connectionString;
-                //SqlCommand sqlCommand = new SqlCommand(readCommand, sqlConnection);
-                //sqlConnection.Open();
+                sqlConnection.ConnectionString = connectionString;
+                SqlCommand sqlCommand = new SqlCommand(readCommand, sqlConnection);
+                sqlConnection.Open();
 
-                //SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 
-                //sqlDataReader.Read();
-                //TextBeat.Text = sqlDataReader["DISPLAYTIME"].ToString() + " Seconds";
+                sqlDataReader.Read();
+                TextBeat.Text = sqlDataReader["DISPLAYTIME"].ToString() + " Seconds";
 
-                //sqlConnection.Close();
+                sqlConnection.Close();
 
                 ListSort.Enabled = true;
 
@@ -178,38 +178,38 @@ namespace LibraryTrainer
 
                 if (userScore == 10)
                 {
-                    //sqlConnection.ConnectionString = connectionString;
-                    //SqlCommand getCommand = new SqlCommand(idCommand, sqlConnection);
-                    //sqlConnection.Open();
+                    sqlConnection.ConnectionString = connectionString;
+                    SqlCommand getCommand = new SqlCommand(idCommand, sqlConnection);
+                    sqlConnection.Open();
 
-                    //SqlDataReader sqlDataReader = getCommand.ExecuteReader();
+                    SqlDataReader sqlDataReader = getCommand.ExecuteReader();
 
-                    //sqlDataReader.Read();
-                    //dataId = Int32.Parse(sqlDataReader["DATAID"].ToString());
+                    sqlDataReader.Read();
+                    dataId = Int32.Parse(sqlDataReader["DATAID"].ToString());
 
-                    //sqlConnection.Close();
+                    sqlConnection.Close();
 
-                    //sqlConnection.ConnectionString = connectionString;
-                    //SqlCommand sqlCommand = new SqlCommand(insertCommand, sqlConnection);
-                    //sqlConnection.Open();
+                    sqlConnection.ConnectionString = connectionString;
+                    SqlCommand sqlCommand = new SqlCommand(insertCommand, sqlConnection);
+                    sqlConnection.Open();
 
-                    //sqlCommand.Parameters.AddWithValue("@A", dataId + 1);
-                    //sqlCommand.Parameters.AddWithValue("@B", timerTicker);
-                    //sqlCommand.Parameters.AddWithValue("@C", userScore);
+                    sqlCommand.Parameters.AddWithValue("@A", dataId + 1);
+                    sqlCommand.Parameters.AddWithValue("@B", timerTicker);
+                    sqlCommand.Parameters.AddWithValue("@C", userScore);
 
-                    //int row = sqlCommand.ExecuteNonQuery();
+                    int row = sqlCommand.ExecuteNonQuery();
 
-                    //sqlConnection.Close();
+                    sqlConnection.Close();
 
-                    //if (row != 0)
-                    //{
-                    //    MessageBox.Show("Game Infromation Was Recorded!", "Note", MessageBoxButtons.OK);
-                    //    ListSort.Enabled = false;
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Game Infromation Was NOT Recorded!", "Note", MessageBoxButtons.OK);
-                    //}
+                    if (row != 0)
+                    {
+                        MessageBox.Show("Game Infromation Was Recorded!", "Note", MessageBoxButtons.OK);
+                        ListSort.Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Game Infromation Was NOT Recorded!", "Note", MessageBoxButtons.OK);
+                    }
                 }
                 else
                 {

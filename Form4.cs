@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,12 +20,12 @@ namespace LibraryTrainer
         /// DATABASE CONNECTION
         /// </summary>
 
-        //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
-        //String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
-        //String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
-        //String idCommand = "SELECT MAX(SORT_ID) AS DATAID FROM SORT;";
+        String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database1.mdf;Integrated Security = True";
+        String insertCommand = "INSERT INTO CALLS (CALL_ID, CALL_TIME) VALUES (@A, @B);";
+        String readCommand = "SELECT MIN(CALL_TIME) AS DISPLAYTIME FROM CALLS;";
+        String idCommand = "SELECT MAX(CALL_ID) AS DATAID FROM CALLS;";
 
-        //SqlConnection sqlConnection = new SqlConnection();
+        SqlConnection sqlConnection = new SqlConnection();
 
         /// <summary>
         /// GLOBAL VARIBLES
@@ -36,7 +37,7 @@ namespace LibraryTrainer
         TreeNode<CallAreas> treeRoot = SampleData.LoadDatatFile();
 
         private int levelCounter = 0;
-        private int timerTicker;
+        private int timerTicker, dataId;
         private string selectedItem;
 
         private List<string> treeCalls = new List<string>();
@@ -56,14 +57,16 @@ namespace LibraryTrainer
         {
             try
             {
-                ///<summary>
-                ///PRINT TEST FOR CONSOLE - OUTPUT
-                /// </summary>
-                /*foreach (TreeNode<CallAreas> node in treeRoot)
-                {
-                    string indent = CreateIndent(node.Level);
-                    Console.WriteLine(indent + (node.Data.AreaNumber + " " + node.Data.AreaName));
-                }*/
+                sqlConnection.ConnectionString = connectionString;
+                SqlCommand sqlCommand = new SqlCommand(readCommand, sqlConnection);
+                sqlConnection.Open();
+
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+                sqlDataReader.Read();
+                TextBeat.Text = sqlDataReader["DISPLAYTIME"].ToString() + " Seconds";
+
+                sqlConnection.Close();
 
                 treeCalls.AddRange(wrench.SelectRandomCall());
                 TextSelectedCall.Text = treeCalls[0];
@@ -319,16 +322,38 @@ namespace LibraryTrainer
                 {
                     if (treeCalls[1] == found.Data.AreaName)
                     {
-                        DisplayLevelThree();
-                    }
-                    else { ResetOnError(); }
-                }
-                if (found.Level == 3)
-                {
-                    if (treeCalls[0] == found.Data.AreaName)
-                    {
-                        //Submit();
                         TimerCalls.Stop();
+
+                        sqlConnection.ConnectionString = connectionString;
+                        SqlCommand getCommand = new SqlCommand(idCommand, sqlConnection);
+                        sqlConnection.Open();
+
+                        SqlDataReader sqlDataReader = getCommand.ExecuteReader();
+
+                        sqlDataReader.Read();
+                        dataId = Int32.Parse(sqlDataReader["DATAID"].ToString());
+
+                        sqlConnection.Close();
+
+                        sqlConnection.ConnectionString = connectionString;
+                        SqlCommand sqlCommand = new SqlCommand(insertCommand, sqlConnection);
+                        sqlConnection.Open();
+
+                        sqlCommand.Parameters.AddWithValue("@A", dataId + 1);
+                        sqlCommand.Parameters.AddWithValue("@B", timerTicker);
+
+                        int row = sqlCommand.ExecuteNonQuery();
+
+                        sqlConnection.Close();
+
+                        if (row != 0)
+                        {
+                            MessageBox.Show("Game Infromation Was Recorded!", "Note", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Game Infromation Was NOT Recorded!", "Note", MessageBoxButtons.OK);
+                        }
                     }
                     else { ResetOnError(); }
                 }
