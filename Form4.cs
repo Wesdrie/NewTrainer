@@ -57,8 +57,9 @@ namespace LibraryTrainer
             try
             {
                 treeCalls.AddRange(wrench.SelectRandomCall());
+                TextSelectedCall.Text = treeCalls[0];
 
-                if(levelCounter == 0)
+                if (levelCounter == 0)
                 {
                     DisplayLevelOne();
                 }
