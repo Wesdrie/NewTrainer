@@ -34,14 +34,24 @@ namespace LibraryTrainer
             get { return Parent == null; }
         }
 
+        public Boolean IsLeaf
+        {
+            get { return Children.Count == 0; }
+        }
+
         //CONSTRUCTOR FOR EXPECTED DATA
         public TreeNode(T data)
         {
             this.Data = data;
             this.Children = new List<TreeNode<T>>();
 
-            this.ElementsIndex = new LinkedList<TreeNode<T>>();
+            this.ElementsIndex = new List<TreeNode<T>>();
             this.ElementsIndex.Add(this);
+        }
+
+        public TreeNode()
+        {
+
         }
 
         public TreeNode<T> AddChild(T child)
@@ -52,6 +62,11 @@ namespace LibraryTrainer
             this.RegisterChildForSearch(childNode);
 
             return childNode;
+        }
+
+        public override string ToString()
+        {
+            return Data != null ? Data.ToString() : "[data null]";
         }
 
         private ICollection<TreeNode<T>> ElementsIndex { get; set; }

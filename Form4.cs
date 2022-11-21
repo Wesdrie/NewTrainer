@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,12 +20,12 @@ namespace LibraryTrainer
         /// DATABASE CONNECTION
         /// </summary>
 
-        //String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LibraryDatabase.mdf;Integrated Security = True";
-        //String insertCommand = "INSERT INTO SORT (SORT_ID, SORT_TIME, SORT_SCORE) VALUES (@A, @B, @C);";
-        //String readCommand = "SELECT MIN(SORT_TIME) AS DISPLAYTIME FROM SORT;";
-        //String idCommand = "SELECT MAX(SORT_ID) AS DATAID FROM SORT;";
+        String connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database1.mdf;Integrated Security = True";
+        String insertCommand = "INSERT INTO CALLS (CALL_ID, CALL_TIME) VALUES (@A, @B);";
+        String readCommand = "SELECT MIN(CALL_TIME) AS DISPLAYTIME FROM CALLS;";
+        String idCommand = "SELECT MAX(CALL_ID) AS DATAID FROM CALLS;";
 
-        //SqlConnection sqlConnection = new SqlConnection();
+        SqlConnection sqlConnection = new SqlConnection();
 
         /// <summary>
         /// GLOBAL VARIBLES
@@ -33,10 +34,10 @@ namespace LibraryTrainer
         Tools wrench = new Tools();
         Random random = new Random();
 
-        TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+        TreeNode<CallAreas> treeRoot = SampleData.LoadDatatFile();
 
         private int levelCounter = 0;
-        private int timerTicker;
+        private int timerTicker, dataId;
         private string selectedItem;
 
         private List<string> treeCalls = new List<string>();
@@ -56,9 +57,21 @@ namespace LibraryTrainer
         {
             try
             {
-                treeCalls.AddRange(wrench.SelectRandomCall());
+                sqlConnection.ConnectionString = connectionString;
+                SqlCommand sqlCommand = new SqlCommand(readCommand, sqlConnection);
+                sqlConnection.Open();
 
-                if(levelCounter == 0)
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+                sqlDataReader.Read();
+                TextBeat.Text = sqlDataReader["DISPLAYTIME"].ToString() + " Seconds";
+
+                sqlConnection.Close();
+
+                treeCalls.AddRange(wrench.SelectRandomCall());
+                TextSelectedCall.Text = treeCalls[0];
+
+                if (levelCounter == 0)
                 {
                     DisplayLevelOne();
                 }
@@ -80,24 +93,62 @@ namespace LibraryTrainer
         }
 
         ///<summary>
+        ///PRINT TEST FOR CONSOLE - STRUCTURE
+        /// </summary>
+        /*private static String CreateIndent(int depth)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < depth; i++)
+            {
+                sb.Append(' ');
+            }
+            return sb.ToString();
+        }*/
+
+        ///<summary>
         ///FUNCTION DISPLAYS LEVEL ONE NODES.
         ///CLEARS PREVIOUS SELECTIONS & ITEMS.
         /// </summary>
         public void DisplayLevelOne()
         {
+            List<string> levelOne = new List<string>();
+            int tempAmount = 0;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 1;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 1)
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-
-                        TextMatch.Text = "Level " + node.Level;
+                        for (int i = 0; i < 9; i++)
+                        {
+                            if(node.Data.AreaName == treeCalls[2])
+                            {
+                                levelOne.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 9;
+                            }
+                        }
+                        levelOne.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount < 4)
+                {
+                    System.Threading.Thread.Sleep(10);
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 9);
+                    
+                    if (!ComboCalls.Items.Contains(levelOne[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelOne[tempNumber]);
+                    }
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -112,19 +163,44 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelTwo()
         {
+            List<string> levelTwo = new List<string>();
+            int tempAmount = 0;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 2;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 2)
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-
-                        TextMatch.Text = "Level " + node.Level;
+                        for (int i = 0; i < 49; i++)
+                        {
+                            if (node.Data.AreaName == treeCalls[1])
+                            {
+                                levelTwo.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 49;
+                            }
+                        }
+                        levelTwo.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount < 4)
+                {
+                    System.Threading.Thread.Sleep(10);
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 49);
+
+                    if (!ComboCalls.Items.Contains(levelTwo[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelTwo[tempNumber]);
+                    }
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -139,19 +215,44 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelThree()
         {
+            List<string> levelThree = new List<string>();
+            int tempAmount = 0;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
                 ComboCalls.Items.Clear();
 
+                TextMatch.Text = "Level " + 3;
+
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     if (node.Level == 3)
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-
-                        TextMatch.Text = "Level " + node.Level;
+                        for (int i = 0; i < 99; i++)
+                        {
+                            if (node.Data.AreaName == treeCalls[0])
+                            {
+                                levelThree.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                                i = 99;
+                            }
+                        }
+                        levelThree.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount < 4)
+                {
+                    System.Threading.Thread.Sleep(10);
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 99);
+
+                    if (!ComboCalls.Items.Contains(levelThree[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelThree[tempNumber]);
+                    }
+                    System.Threading.Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -203,6 +304,7 @@ namespace LibraryTrainer
         {
             try
             {
+                //NULL ISSUE HERE
                 selectedItem = ComboCalls.SelectedItem.ToString();
                 string[] tempSplit = selectedItem.Split();
 
@@ -220,16 +322,38 @@ namespace LibraryTrainer
                 {
                     if (treeCalls[1] == found.Data.AreaName)
                     {
-                        DisplayLevelThree();
-                    }
-                    else { ResetOnError(); }
-                }
-                if (found.Level == 3)
-                {
-                    if (treeCalls[0] == found.Data.AreaName)
-                    {
-                        //Submit();
                         TimerCalls.Stop();
+
+                        sqlConnection.ConnectionString = connectionString;
+                        SqlCommand getCommand = new SqlCommand(idCommand, sqlConnection);
+                        sqlConnection.Open();
+
+                        SqlDataReader sqlDataReader = getCommand.ExecuteReader();
+
+                        sqlDataReader.Read();
+                        dataId = Int32.Parse(sqlDataReader["DATAID"].ToString());
+
+                        sqlConnection.Close();
+
+                        sqlConnection.ConnectionString = connectionString;
+                        SqlCommand sqlCommand = new SqlCommand(insertCommand, sqlConnection);
+                        sqlConnection.Open();
+
+                        sqlCommand.Parameters.AddWithValue("@A", dataId + 1);
+                        sqlCommand.Parameters.AddWithValue("@B", timerTicker);
+
+                        int row = sqlCommand.ExecuteNonQuery();
+
+                        sqlConnection.Close();
+
+                        if (row != 0)
+                        {
+                            MessageBox.Show("Game Infromation Was Recorded!", "Note", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Game Infromation Was NOT Recorded!", "Note", MessageBoxButtons.OK);
+                        }
                     }
                     else { ResetOnError(); }
                 }
@@ -293,6 +417,11 @@ namespace LibraryTrainer
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ButtonBack_Click_1(object sender, EventArgs e)
+        {
+            ButtonBack_Click(sender, e);
         }
     }
 }
