@@ -62,27 +62,34 @@ namespace LibraryTrainer
         /// </summary>
         public void SelectRandomCall()
         {
-            List<string> tempListOne = new List<string>();
-            List<string> tempListTwo = new List<string>();
-            List<string> tempListThree = new List<string>();
-            int tempValue;
-
-            foreach (TreeNode<CallAreas> node in treeRoot)
+            try
             {
-                if (node.Level == 3)
+                List<string> tempListOne = new List<string>();
+                List<string> tempListTwo = new List<string>();
+                List<string> tempListThree = new List<string>();
+                int tempValue;
+
+                foreach (TreeNode<CallAreas> node in treeRoot)
                 {
-                    tempListOne.Add(node.Data.AreaName);
-                    tempListTwo.Add(node.Parent.Data.AreaName);
-                    tempListThree.Add(node.Parent.Parent.Data.AreaName);
+                    if (node.Level == 3)
+                    {
+                        tempListOne.Add(node.Data.AreaName);
+                        tempListTwo.Add(node.Parent.Data.AreaName);
+                        tempListThree.Add(node.Parent.Parent.Data.AreaName);
+                    }
                 }
+
+                tempValue = random.Next(tempListOne.Count);
+                selectedCall = tempListOne[tempValue];
+                selectedParent = tempListTwo[tempValue];
+                selectedGrandParent = tempListThree[tempValue];
+
+                TextSelectedCall.Text = selectedCall;
             }
-
-            tempValue = random.Next(tempListOne.Count);
-            selectedCall = tempListOne[tempValue];
-            selectedParent = tempListTwo[tempValue];
-            selectedGrandParent = tempListThree[tempValue];
-
-            TextSelectedCall.Text = selectedCall;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         ///<summary>
@@ -91,17 +98,24 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelOne()
         {
-            ComboCalls.SelectedIndex = -1;
-            ComboCalls.Items.Clear();
-
-            foreach (TreeNode<CallAreas> node in treeRoot)
+            try
             {
-                if (node.Level == 1)
-                {
-                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                ComboCalls.SelectedIndex = -1;
+                ComboCalls.Items.Clear();
 
-                    TextMatch.Text = "Level " + node.Level;
+                foreach (TreeNode<CallAreas> node in treeRoot)
+                {
+                    if (node.Level == 1)
+                    {
+                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                        TextMatch.Text = "Level " + node.Level;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -111,17 +125,24 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelTwo()
         {
-            ComboCalls.SelectedIndex = -1;
-            ComboCalls.Items.Clear();
-
-            foreach (TreeNode<CallAreas> node in treeRoot)
+            try
             {
-                if (node.Level == 2)
-                {
-                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                ComboCalls.SelectedIndex = -1;
+                ComboCalls.Items.Clear();
 
-                    TextMatch.Text = "Level " + node.Level;
+                foreach (TreeNode<CallAreas> node in treeRoot)
+                {
+                    if (node.Level == 2)
+                    {
+                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                        TextMatch.Text = "Level " + node.Level;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -131,17 +152,24 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelThree()
         {
-            ComboCalls.SelectedIndex = -1;
-            ComboCalls.Items.Clear();
-
-            foreach (TreeNode<CallAreas> node in treeRoot)
+            try
             {
-                if (node.Level == 3)
-                {
-                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                ComboCalls.SelectedIndex = -1;
+                ComboCalls.Items.Clear();
 
-                    TextMatch.Text = "Level " + node.Level;
+                foreach (TreeNode<CallAreas> node in treeRoot)
+                {
+                    if (node.Level == 3)
+                    {
+                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                        TextMatch.Text = "Level " + node.Level;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -151,13 +179,27 @@ namespace LibraryTrainer
         /// </summary>
         public void ResetOnError()
         {
-            //NEEDS MESSAGE
-            DisplayLevelOne();
+            try
+            {
+                //NEEDS MESSAGE
+                DisplayLevelOne();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
-            DisplayLevelOne();
+            try
+            {
+                DisplayLevelOne();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         ///<summary>
@@ -312,15 +354,29 @@ namespace LibraryTrainer
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
-            WindowMain windowMain = new WindowMain();
-            windowMain.Show();
+            try
+            {
+                WindowMain windowMain = new WindowMain();
+                windowMain.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
