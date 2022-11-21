@@ -130,6 +130,7 @@
             this.ButtonBack.TabIndex = 2;
             this.ButtonBack.Text = "Back";
             this.ButtonBack.UseVisualStyleBackColor = true;
+            this.ButtonBack.Click += new System.EventHandler(this.ButtonBack_Click_1);
             // 
             // ButtonReset
             // 

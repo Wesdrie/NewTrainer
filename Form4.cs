@@ -56,11 +56,14 @@ namespace LibraryTrainer
         {
             try
             {
-                foreach (TreeNode<CallAreas> node in treeRoot)
+                ///<summary>
+                ///PRINT TEST FOR CONSOLE - OUTPUT
+                /// </summary>
+                /*foreach (TreeNode<CallAreas> node in treeRoot)
                 {
                     string indent = CreateIndent(node.Level);
                     Console.WriteLine(indent + (node.Data.AreaNumber + " " + node.Data.AreaName));
-                }
+                }*/
 
                 treeCalls.AddRange(wrench.SelectRandomCall());
                 TextSelectedCall.Text = treeCalls[0];
@@ -86,7 +89,10 @@ namespace LibraryTrainer
             }
         }
 
-        private static String CreateIndent(int depth)
+        ///<summary>
+        ///PRINT TEST FOR CONSOLE - STRUCTURE
+        /// </summary>
+        /*private static String CreateIndent(int depth)
         {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < depth; i++)
@@ -94,7 +100,7 @@ namespace LibraryTrainer
                 sb.Append(' ');
             }
             return sb.ToString();
-        }
+        }*/
 
         ///<summary>
         ///FUNCTION DISPLAYS LEVEL ONE NODES.
@@ -102,6 +108,10 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelOne()
         {
+            List<CallAreas> levelOne = new List<CallAreas>();
+            int tempCounter = 0;
+            string tempString;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
@@ -109,11 +119,21 @@ namespace LibraryTrainer
 
                 foreach (TreeNode<CallAreas> node in treeRoot)
                 {
-                    if (node.Level == 1)
+                    if (node.Level == 1 && (tempCounter != 4))
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                        int tempNumber = random.Next(0, 9);
+                        tempString = tempNumber.ToString();
+
+
+                        if(node.Data.AreaNumber.Contains(tempString) && (!ComboCalls.Items.Contains(node.Data.AreaNumber)))
+                        {
+                            ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                            tempCounter++;
+                        }
 
                         TextMatch.Text = "Level " + node.Level;
+
+                        Console.WriteLine(tempCounter);
                     }
                 }
             }
@@ -310,6 +330,11 @@ namespace LibraryTrainer
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ButtonBack_Click_1(object sender, EventArgs e)
+        {
+            ButtonBack_Click(sender, e);
         }
     }
 }
