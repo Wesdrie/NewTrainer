@@ -64,7 +64,7 @@ namespace LibraryTrainer
         ///1 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
         ///2 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
         /// </summary>
-        /*public void LoadDatatFile()
+        public static TreeNode<CallAreas> LoadDatatFile()
         {
             int valueOne = 0;
             int valueTwo = 0;
@@ -150,6 +150,6 @@ namespace LibraryTrainer
                     Console.WriteLine("\t\t" + values[2] + " " + values[3]);
                 }
             }
-        }*/
+        }
     }
 }

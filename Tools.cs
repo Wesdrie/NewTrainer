@@ -12,6 +12,7 @@ namespace LibraryTrainer
         /// <summary>
         /// VARIBLES
         /// </summary>
+        
         Random random = new Random();
 
         TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
@@ -54,7 +55,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// CHECKS OPERATION TO ASSIGN POINTS TO USERS
+        /// CHECKS OPERATION TO ASSIGN POINTS TO USERS.
         /// </summary>
         public int CheckDecimal(List<String> controlList, List<String> userList)
         {
@@ -84,7 +85,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// GENERATES LIST OF RANDOM INTEGERS TO USE IN PULLING VALUES FROM DICTIONARY
+        /// GENERATES LIST OF RANDOM INTEGERS TO USE IN PULLING VALUES FROM DICTIONARY.
         /// </summary>
         public List<int> RandomAreas()
         {
@@ -111,7 +112,7 @@ namespace LibraryTrainer
         }
 
         /// <summary>
-        /// CHECKS OPERATION TO ASSIGN POINTS TO USERS
+        /// CHECKS OPERATION TO ASSIGN POINTS TO USERS.
         /// </summary>
         public int CheckAreas(List<String> areaList, List<String> textList)
         {
