@@ -21,7 +21,7 @@ namespace LibraryTrainer
         TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
 
         private int levelCounter = 0;
-        private string selectedCall;
+        private string selectedCall, selectedParent, selectedGrandParent, selectedItem;
 
         public WindowCall()
         {
@@ -56,70 +56,98 @@ namespace LibraryTrainer
         }
 
         ///<summary>
-        ///WHEN CALLED SELECTS RANDOM LAST ELVEL CALL DESCRIPTION.
+        ///SELECT RANDOM CALL NAME BY PULLING DATA FROM TREE, THEN STORING IN LIST.
+        ///STORE CALL NAME, CALL NAME PARENT AND CALL NAME GRANDPARENT.
+        ///USE RANDOM NUMBER GENERATOR TO SELECT CALL NAME.
         /// </summary>
         public void SelectRandomCall()
         {
-            List<string> tempList = new List<string>();
+            List<string> tempListOne = new List<string>();
+            List<string> tempListTwo = new List<string>();
+            List<string> tempListThree = new List<string>();
             int tempValue;
 
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
                 if (node.Level == 3)
                 {
-                    tempList.Add(node.Data.AreaName);
+                    tempListOne.Add(node.Data.AreaName);
+                    tempListTwo.Add(node.Parent.Data.AreaName);
+                    tempListThree.Add(node.Parent.Parent.Data.AreaName);
                 }
             }
 
-            tempValue = random.Next(tempList.Count);
-            selectedCall = tempList[tempValue];
+            tempValue = random.Next(tempListOne.Count);
+            selectedCall = tempListOne[tempValue];
+            selectedParent = tempListTwo[tempValue];
+            selectedGrandParent = tempListThree[tempValue];
 
             TextSelectedCall.Text = selectedCall;
         }
 
         ///<summary>
-        ///WHEN CALLED FUNCITON ADDS FOUR TOP LEVEL ANSWERS TO COMBOBOX.
+        ///FUNCTION DISPLAYS LEVEL ONE NODES.
+        ///CLEARS PREVIOUS SELECTIONS & ITEMS.
         /// </summary>
         public void DisplayLevelOne()
         {
+            ComboCalls.SelectedIndex = -1;
+            ComboCalls.Items.Clear();
+
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
                 if (node.Level == 1)
                 {
-                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                    TextMatch.Text = "Level " + node.Level;
                 }
             }
         }
 
         ///<summary>
-        ///WHEN CALLED FUNCITON ADDS FOUR NEXT LEVEL ANSWERS TO COMBOBOX.
+        ///FUNCTION DISPLAYS LEVEL TWO NODES.
+        ///CLEARS PREVIOUS SELECTIONS & ITEMS.
         /// </summary>
         public void DisplayLevelTwo()
         {
+            ComboCalls.SelectedIndex = -1;
+            ComboCalls.Items.Clear();
+
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
                 if (node.Level == 2)
                 {
-                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                    TextMatch.Text = "Level " + node.Level;
                 }
             }
         }
 
         ///<summary>
-        ///WHEN CALLED FUNCITON ADDS FOUR LAST LEVEL ANSWERS TO COMBOBOX.
+        ///FUNCTION DISPLAYS LEVEL THREE NODES.
+        ///CLEARS PREVIOUS SELECTIONS & ITEMS.
         /// </summary>
         public void DisplayLevelThree()
         {
+            ComboCalls.SelectedIndex = -1;
+            ComboCalls.Items.Clear();
+
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
                 if (node.Level == 3)
                 {
-                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+
+                    TextMatch.Text = "Level " + node.Level;
                 }
             }
+        }
+
+        private void ButtonReset_Click(object sender, EventArgs e)
+        {
+            DisplayLevelOne();
         }
 
         ///<summary>
@@ -224,6 +252,52 @@ namespace LibraryTrainer
                 Console.WriteLine(ex.ToString());
             }
         }*/
+
+        ///<summary>
+        ///CHECK THE CURRENT OPERATION.
+        ///PULL SELECTION FORM COMBO BOX, THEN SPLIT INTO STRING ARRAY ON SPACE.
+        ///PREFORM SEARCH ITERATION ON TREE DATA, WHERE DATA CANNOT BE NULL, AND AREA NUMBER AND ARE AESCIRPTION MUST MATCH.
+        ///IF MATCH, THEN CORRECT, ELSE RESET.
+        ///</summary>
+        private void ButtonComplete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                selectedItem = ComboCalls.SelectedItem.ToString();
+                string[] tempSplit = selectedItem.Split();
+
+                TreeNode<CallAreas> found = treeRoot.FindTreeNode(node => node.Data != null && node.Data.AreaNumber.Contains(tempSplit[0]) && node.Data.AreaName.Contains(tempSplit[1]));
+                
+                if(found.Level == 1)
+                {
+                    if(selectedGrandParent == found.Data.AreaName)
+                    {
+                        DisplayLevelTwo();
+                    }
+                    else { ButtonReset_Click(sender, e); }
+                }
+                if (found.Level == 2)
+                {
+                    if (selectedParent == found.Data.AreaName)
+                    {
+                        DisplayLevelThree();
+                    }
+                    else { ButtonReset_Click(sender, e); }
+                }
+                if (found.Level == 3)
+                {
+                    if (selectedCall == found.Data.AreaName)
+                    {
+                        //Submit();
+                    }
+                    else { ButtonReset_Click(sender, e); }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {

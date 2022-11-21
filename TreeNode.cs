@@ -39,6 +39,9 @@ namespace LibraryTrainer
         {
             this.Data = data;
             this.Children = new List<TreeNode<T>>();
+
+            this.ElementsIndex = new LinkedList<TreeNode<T>>();
+            this.ElementsIndex.Add(this);
         }
 
         public TreeNode<T> AddChild(T child)
@@ -46,7 +49,23 @@ namespace LibraryTrainer
             TreeNode<T> childNode = new TreeNode<T>(child) { Parent = this };
             this.Children.Add(childNode);
 
+            this.RegisterChildForSearch(childNode);
+
             return childNode;
+        }
+
+        private ICollection<TreeNode<T>> ElementsIndex { get; set; }
+
+        private void RegisterChildForSearch(TreeNode<T> node)
+        {
+            ElementsIndex.Add(node);
+            if (Parent != null)
+                Parent.RegisterChildForSearch(node);
+        }
+
+        public TreeNode<T> FindTreeNode(Func<TreeNode<T>, bool> predicate)
+        {
+            return this.ElementsIndex.FirstOrDefault(predicate);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -113,6 +113,7 @@
             this.ButtonComplete.TabIndex = 1;
             this.ButtonComplete.Text = "Check";
             this.ButtonComplete.UseVisualStyleBackColor = true;
+            this.ButtonComplete.Click += new System.EventHandler(this.ButtonComplete_Click);
             // 
             // ButtonBack
             // 
@@ -141,6 +142,7 @@
             this.ButtonReset.TabIndex = 3;
             this.ButtonReset.Text = "Reset";
             this.ButtonReset.UseVisualStyleBackColor = true;
+            this.ButtonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
             // ComboCalls
             // 
