@@ -145,6 +145,16 @@ namespace LibraryTrainer
             }
         }
 
+        /// <summary>
+        /// RESET OF QUESTIONS WILL OCCUR, WHILE TIMER WILL NOT BE STOPPED.
+        /// MESSEAGE DISPLAY RESET STAUTS WILL BE DISPLAYED TO USER.
+        /// </summary>
+        public void ResetOnError()
+        {
+            //NEEDS MESSAGE
+            DisplayLevelOne();
+        }
+
         private void ButtonReset_Click(object sender, EventArgs e)
         {
             DisplayLevelOne();
@@ -253,6 +263,7 @@ namespace LibraryTrainer
             }
         }*/
 
+
         ///<summary>
         ///CHECK THE CURRENT OPERATION.
         ///PULL SELECTION FORM COMBO BOX, THEN SPLIT INTO STRING ARRAY ON SPACE.
@@ -274,7 +285,7 @@ namespace LibraryTrainer
                     {
                         DisplayLevelTwo();
                     }
-                    else { ButtonReset_Click(sender, e); }
+                    else { ResetOnError(); }
                 }
                 if (found.Level == 2)
                 {
@@ -282,7 +293,7 @@ namespace LibraryTrainer
                     {
                         DisplayLevelThree();
                     }
-                    else { ButtonReset_Click(sender, e); }
+                    else { ResetOnError(); }
                 }
                 if (found.Level == 3)
                 {
@@ -290,7 +301,7 @@ namespace LibraryTrainer
                     {
                         //Submit();
                     }
-                    else { ButtonReset_Click(sender, e); }
+                    else { ResetOnError(); }
                 }
             }
             catch (Exception ex)
