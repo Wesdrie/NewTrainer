@@ -129,6 +129,10 @@ namespace LibraryTrainer
                     tempAmount = ComboCalls.Items.Count;
                     int tempNumber = random.Next(0, 9);
 
+                    if (treeCalls[2] == levelOne[tempNumber])
+                    {
+                        ComboCalls.Items.Add(levelOne[tempNumber]);
+                    }
                     if (!ComboCalls.Items.Contains(levelOne[tempNumber]))
                     {
                         ComboCalls.Items.Add(levelOne[tempNumber]);
@@ -149,6 +153,9 @@ namespace LibraryTrainer
         /// </summary>
         public void DisplayLevelTwo()
         {
+            List<string> levelTwo = new List<string>();
+            int tempAmount = 0;
+
             try
             {
                 ComboCalls.SelectedIndex = -1;
@@ -158,10 +165,21 @@ namespace LibraryTrainer
                 {
                     if (node.Level == 2)
                     {
-                        ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
-
-                        TextMatch.Text = "Level " + node.Level;
+                        levelTwo.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                     }
+                }
+
+                while (tempAmount != 3)
+                {
+                    tempAmount = ComboCalls.Items.Count;
+                    int tempNumber = random.Next(0, 9);
+
+                    if (!ComboCalls.Items.Contains(levelTwo[tempNumber]))
+                    {
+                        ComboCalls.Items.Add(levelTwo[tempNumber]);
+                    }
+
+                    TextMatch.Text = "Level " + 2;
                 }
             }
             catch (Exception ex)
