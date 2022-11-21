@@ -38,7 +38,23 @@ namespace LibraryTrainer
         private void WindowCall_Load(object sender, EventArgs e)
         {
             LoadDatatFile();
-            TreeNode<CallAreas> treeRoot = LoadTestData();
+            TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+
+            foreach (TreeNode<CallAreas> node in treeRoot)
+            {
+                string indent = CreateIndent(node.Level);
+                Console.WriteLine(indent + (node.Data ?? "null"));
+            }
+        }
+
+        private static String CreateIndent(int depth)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < depth; i++)
+            {
+                sb.Append(' ');
+            }
+            return sb.ToString();
         }
 
         ///<summary>
@@ -143,11 +159,5 @@ namespace LibraryTrainer
                 Console.WriteLine(ex.ToString());
             }
         }
-
-        ///<summary>
-        ///HARD CODED TEST DATA FOR FUCNTIONS.
-        /// </summary>
-        
-
     }
 }

@@ -9,6 +9,9 @@ namespace LibraryTrainer
 {
     internal class SampleData
     {
+        ///<summary>
+        ///HARD CODED TEST DATA FOR FUNCTIONS TESTING.
+        /// </summary>
         public static TreeNode<CallAreas> LoadTestData()
         {
             TreeNode<CallAreas> root = new TreeNode<CallAreas>(new CallAreas("ROOT", "ROOT"));
