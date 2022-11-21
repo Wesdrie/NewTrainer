@@ -17,44 +17,100 @@ namespace LibraryTrainer
     {
         Tools tools = new Tools();
 
+        TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+
+        private int levelCounter = 0;
+        private string selectedCall;
+
         public WindowCall()
         {
             InitializeComponent();
         }
 
-        private void ButtonBack_Click(object sender, EventArgs e)
-        {
-            WindowMain windowMain = new WindowMain();
-            windowMain.Show();
-
-            this.Hide();
-        }
-
-        private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void WindowCall_Load(object sender, EventArgs e)
         {
-            LoadDatatFile();
-            TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+            try
+            {
+                //LoadDatatFile();
+
+                SelectRandomCall();
+
+                if(levelCounter == 0)
+                {
+                    DisplayLevelOne();
+                }
+                if (levelCounter == 2)
+                {
+                    DisplayLevelTwo();
+                }
+                if (levelCounter == 3)
+                {
+                    DisplayLevelThree();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        ///<summary>
+        ///WHEN CALLED SELECTS RANDOM LAST ELVEL CALL DESCRIPTION.
+        /// </summary>
+        public void SelectRandomCall()
+        {
+            List<string> tempList = new List<string>();
 
             foreach (TreeNode<CallAreas> node in treeRoot)
             {
-                string indent = CreateIndent(node.Level);
-                Console.WriteLine(indent + (node.Data ?? "null"));
+                if (node.Level == 3)
+                {
+                    tempList.Add(node.Data.AreaName);
+                }
+            }
+
+        }
+
+        ///<summary>
+        ///WHEN CALLED FUNCITON ADDS FOUR TOP LEVEL ANSWERS TO COMBOBOX.
+        /// </summary>
+        public void DisplayLevelOne()
+        {
+            foreach (TreeNode<CallAreas> node in treeRoot)
+            {
+                if (node.Level == 1)
+                {
+                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                }
             }
         }
 
-        private static String CreateIndent(int depth)
+        ///<summary>
+        ///WHEN CALLED FUNCITON ADDS FOUR NEXT LEVEL ANSWERS TO COMBOBOX.
+        /// </summary>
+        public void DisplayLevelTwo()
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < depth; i++)
+            foreach (TreeNode<CallAreas> node in treeRoot)
             {
-                sb.Append(' ');
+                if (node.Level == 2)
+                {
+                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                }
             }
-            return sb.ToString();
+        }
+
+        ///<summary>
+        ///WHEN CALLED FUNCITON ADDS FOUR LAST LEVEL ANSWERS TO COMBOBOX.
+        /// </summary>
+        public void DisplayLevelThree()
+        {
+            foreach (TreeNode<CallAreas> node in treeRoot)
+            {
+                if (node.Level == 3)
+                {
+                    ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
+                }
+            }
         }
 
         ///<summary>
@@ -64,7 +120,7 @@ namespace LibraryTrainer
         ///1 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
         ///2 - TARGET PARENT NODE IS EVALUATED BEFORE ASSIGNMENT TO PARENT NODE.
         /// </summary>
-        public void LoadDatatFile()
+        /*public void LoadDatatFile()
         {
             try
             {
@@ -158,6 +214,19 @@ namespace LibraryTrainer
             {
                 Console.WriteLine(ex.ToString());
             }
+        }*/
+
+        private void ButtonBack_Click(object sender, EventArgs e)
+        {
+            WindowMain windowMain = new WindowMain();
+            windowMain.Show();
+
+            this.Hide();
+        }
+
+        private void WindowCall_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

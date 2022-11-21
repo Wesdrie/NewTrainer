@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 
 namespace LibraryTrainer
 {
-    internal class TreeNode<T>
+    internal class TreeNode<T> : IEnumerable<TreeNode<T>>
     {
         //DATA STORED IN NODE
         public T Data { get; set; }
@@ -16,17 +17,21 @@ namespace LibraryTrainer
         //REFERNCE TO CHILD NODES
         public List<TreeNode<T>> Children { get; set; }
 
-        //RETURNS HEIGHT OF NODE
-        public int GetHeight()
+        //RETURNS LEVEL OF NODE
+        public int Level
         {
-            int height = 1;
-            TreeNode<T> current = this;
-            while (current.Parent != null)
+            get
             {
-                height++;
-                current = current.Parent;
+                if (this.IsRoot)
+                    return 0;
+                return Parent.Level + 1;
             }
-            return height;
+        }
+
+        //CHECKS IF NODE IS THE ROOT
+        public Boolean IsRoot
+        {
+            get { return Parent == null; }
         }
 
         //CONSTRUCTOR FOR EXPECTED DATA
@@ -42,6 +47,21 @@ namespace LibraryTrainer
             this.Children.Add(childNode);
 
             return childNode;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<TreeNode<T>> GetEnumerator()
+        {
+            yield return this;
+            foreach (var directChild in this.Children)
+            {
+                foreach (var anyChild in directChild)
+                    yield return anyChild;
+            }
         }
 
     }
