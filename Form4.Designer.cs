@@ -111,7 +111,7 @@
             this.ButtonComplete.Name = "ButtonComplete";
             this.ButtonComplete.Size = new System.Drawing.Size(200, 45);
             this.ButtonComplete.TabIndex = 1;
-            this.ButtonComplete.Text = "Complete";
+            this.ButtonComplete.Text = "Check";
             this.ButtonComplete.UseVisualStyleBackColor = true;
             // 
             // ButtonBack
@@ -166,9 +166,9 @@
             // 
             // TextSelectedCall
             // 
-            this.TextSelectedCall.Location = new System.Drawing.Point(124, 45);
+            this.TextSelectedCall.Location = new System.Drawing.Point(0, 45);
             this.TextSelectedCall.Name = "TextSelectedCall";
-            this.TextSelectedCall.Size = new System.Drawing.Size(186, 19);
+            this.TextSelectedCall.Size = new System.Drawing.Size(431, 19);
             this.TextSelectedCall.TabIndex = 7;
             this.TextSelectedCall.Text = "Call Description";
             this.TextSelectedCall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -40,11 +40,11 @@ namespace LibraryTrainer
                 {
                     DisplayLevelOne();
                 }
-                if (levelCounter == 2)
+                if (levelCounter == 1)
                 {
                     DisplayLevelTwo();
                 }
-                if (levelCounter == 3)
+                if (levelCounter == 2)
                 {
                     DisplayLevelThree();
                 }
@@ -86,7 +86,7 @@ namespace LibraryTrainer
             {
                 if (node.Level == 1)
                 {
-                    TextMatch.Text = "Level" + node.Level;
+                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                 }
             }
@@ -101,6 +101,7 @@ namespace LibraryTrainer
             {
                 if (node.Level == 2)
                 {
+                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                 }
             }
@@ -115,6 +116,7 @@ namespace LibraryTrainer
             {
                 if (node.Level == 3)
                 {
+                    TextMatch.Text = "Level " + node.Level;
                     ComboCalls.Items.Add(node.Data.AreaNumber + " " + node.Data.AreaName);
                 }
             }
