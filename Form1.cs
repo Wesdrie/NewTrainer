@@ -13,59 +13,93 @@ namespace LibraryTrainer
 {
     public partial class WindowMain : Form
     {
-        /// <summary>
-        /// DATABASE CONNECTION
-        /// </summary>
-        
         public WindowMain()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// ON-WINDOW-LOADS, DO THESE:
-        /// ENSURE LOCAL DB IS CREATED.
-        /// </summary>
-        private void WindowMain_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// NAVIGATION BUTTONS & ENSURE APPLICAITON CLOSES
+        /// NAVIGATE TO SORTING GAME
         /// </summary>
         private void ButtonSort_Click(object sender, EventArgs e)
         {
-            WindowSort windowSort = new WindowSort();
-            windowSort.Show();
+            try
+            {
+                WindowSort windowSort = new WindowSort();
+                windowSort.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// NAVIGATE TO AREA GAME
+        /// </summary>
         private void ButtonArea_Click(object sender, EventArgs e)
         {
-            WindowAreas windowAreas = new WindowAreas();
-            windowAreas.Show();
+            try
+            {
+                WindowAreas windowAreas = new WindowAreas();
+                windowAreas.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// NAVIGATE TO CALL GAME
+        /// </summary>
         private void ButtonCall_Click(object sender, EventArgs e)
         {
-            WindowCall windowCall = new WindowCall();
-            windowCall.Show();
+            try
+            {
+                WindowCall windowCall = new WindowCall();
+                windowCall.Show();
 
-            this.Hide();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// ON-BUTTON EXIT APPLICATION & ENSURE APPLICATION CLOSES
+        /// </summary>
         private void ButtonExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// ON-BUTTON 'X' EXIT APPLICATION & ENSURE APPLICATION CLOSES
+        /// </summary>
         private void WindowMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

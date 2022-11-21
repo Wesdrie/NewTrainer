@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LibraryTrainer
 {
+    /// <summary>
+    /// OBJECT STRUCTURE FOR EXPECTED DATA.
+    /// </summary>
     internal class CallAreas
     {
         public string AreaNumber { get; set; }
@@ -17,6 +20,12 @@ namespace LibraryTrainer
             this.AreaNumber = areaNumber;
             this.AreaName = areaName;
             this.AreaDescription = areaDescription;
+        }
+
+        public CallAreas(string areaNumber, string areaName)
+        {
+            this.AreaNumber = areaNumber;
+            this.AreaName = areaName;
         }
     }
 }

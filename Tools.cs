@@ -14,17 +14,18 @@ namespace LibraryTrainer
         /// </summary>
         Random random = new Random();
 
+        TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+
         /// <summary>
         /// GENERATES SINGLE ITEM OF DEWEY DECIMAL VALUES FORMAT XXX.XXX.XXX
         /// </summary>
-        public String GenerateDecimal()
+        public string GenerateDecimal()
         {
-            Random random = new Random();
-            List<String> characters = new List<String>();
+            List<string> characters = new List<string>();
 
             int valueOne;
             char valueTwo;
-            String deweyValue;
+            string deweyValue;
 
             for (int i = 0; i < 3; i++)
             {
@@ -137,6 +138,38 @@ namespace LibraryTrainer
             }
 
             return valueTwo;
+        }
+
+        ///<summary>
+        ///SELECT RANDOM CALL NAME BY PULLING DATA FROM TREE, THEN STORING IN LIST.
+        ///STORE CALL NAME, CALL NAME PARENT AND CALL NAME GRANDPARENT.
+        ///USE RANDOM NUMBER GENERATOR TO SELECT CALL NAME.
+        /// </summary>
+        public List<string> SelectRandomCall()
+        {
+            List<string> treeCalls = new List<string>();
+            List<string> tempListOne = new List<string>();
+            List<string> tempListTwo = new List<string>();
+            List<string> tempListThree = new List<string>();
+
+            int tempValue;
+
+            foreach (TreeNode<CallAreas> node in treeRoot)
+            {
+                if (node.Level == 3)
+                {
+                    tempListOne.Add(node.Data.AreaName);
+                    tempListTwo.Add(node.Parent.Data.AreaName);
+                    tempListThree.Add(node.Parent.Parent.Data.AreaName);
+                }
+            }
+
+            tempValue = random.Next(tempListOne.Count);
+            treeCalls.Add(tempListOne[tempValue]);
+            treeCalls.Add(tempListTwo[tempValue]);
+            treeCalls.Add(tempListThree[tempValue]);
+
+            return treeCalls;
         }
     }
 }

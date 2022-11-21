@@ -78,7 +78,6 @@
             // ButtonCall
             // 
             this.ButtonCall.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ButtonCall.Enabled = false;
             this.ButtonCall.FlatAppearance.BorderSize = 0;
             this.ButtonCall.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.ButtonCall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -135,7 +134,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Library Trainer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WindowMain_FormClosing);
-            this.Load += new System.EventHandler(this.WindowMain_Load);
             this.SplitMain.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).EndInit();
             this.SplitMain.ResumeLayout(false);
