@@ -33,7 +33,7 @@ namespace LibraryTrainer
         Tools wrench = new Tools();
         Random random = new Random();
 
-        TreeNode<CallAreas> treeRoot = SampleData.LoadTestData();
+        TreeNode<CallAreas> treeRoot = SampleData.LoadDatatFile();
 
         private int levelCounter = 0;
         private int timerTicker;
@@ -56,6 +56,12 @@ namespace LibraryTrainer
         {
             try
             {
+                foreach (TreeNode<CallAreas> node in treeRoot)
+                {
+                    string indent = CreateIndent(node.Level);
+                    Console.WriteLine(indent + (node.Data.AreaNumber + " " + node.Data.AreaName));
+                }
+
                 treeCalls.AddRange(wrench.SelectRandomCall());
                 TextSelectedCall.Text = treeCalls[0];
 
@@ -78,6 +84,16 @@ namespace LibraryTrainer
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private static String CreateIndent(int depth)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < depth; i++)
+            {
+                sb.Append(' ');
+            }
+            return sb.ToString();
         }
 
         ///<summary>
